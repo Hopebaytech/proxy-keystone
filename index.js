@@ -100,8 +100,13 @@ ProxyKeystone = function(customOptions){
 
     // begin req.url transformation
     req.url = req.url.split(proxyUrl)[1]; // remove /proxy/
-    serviceParams = req.url.split('/')[0]; // grabs 'catalogItem,[region]'
-    req.url = req.url.split(serviceParams)[1]; // transform req.url
+    if (req.service) {
+      serviceParams = req.service;
+    }
+    else {
+      serviceParams = req.url.split('/')[0]; // grabs 'catalogItem,[region]'
+      req.url = req.url.split(serviceParams)[1]; // transform req.url
+    }
 
     serviceInfo = self.parseService(serviceParams);
 
