@@ -3,17 +3,21 @@
   "version": "2.0.1",
   "description": "A proxy for OpenStack Keystone service catalog endpoints built on top of http-proxy.",
   "main": "index.js",
-  "homepage": "https://github.com/eddywashere/proxy-keystone",
-  "bugs": "https://github.com/eddywashere/proxy-keystone/issues",
+  "homepage": "https://github.com/Hopebaytech/proxy-keystone",
+  "bugs": "https://github.com/Hopebaytech/proxy-keystone/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/eddywashere/proxy-keystone"
+    "url": "https://github.com/Hopebaytech/proxy-keystone"
   },
   "author": {
     "name": "Eddy Hernandez",
     "email": "edward.d.hernandez@gmail.com",
     "url": "http://eddywashere.com"
   },
+  "contributors": [{
+    "name": "Joe Chen",
+    "email": "joe.chen@hopebaytech.com"
+  }],
   "license": "MIT",
   "keywords": [
     "proxy",
