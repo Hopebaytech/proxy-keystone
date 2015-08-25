@@ -130,7 +130,12 @@ ProxyKeystone = function(customOptions){
 
     // url.parse creates an object
     endpointInfo = Url.parse(endpoint.publicURL);
-    target = endpoint.publicURL.split(endpointInfo.path)[0];
+    if (endpointInfo.path != '/') {
+      target = endpoint.publicURL.split(endpointInfo.path)[0];
+    }
+    else {
+      target = endpoint.publicURL;
+    }
     req.url = endpointInfo.pathname + req.url;
 
     // Set headers
