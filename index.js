@@ -1,5 +1,6 @@
 'use strict';
 
+var request = require('request');
 var Url = require('url'),
 util = require('util'),
 EventEmitter = require('events').EventEmitter,
@@ -150,22 +151,35 @@ ProxyKeystone = function(customOptions){
       req.headers['User-Agent'] = self.options.userAgent;
     }
 
-    proxy.on('start', function(req, res, target){
-      self.emit('proxyStart', req, res, target);
-    });
+    if (req.method == 'POST' || req.method == 'PUT') {
+      request({
+        method: req.method,
+        url: target + req.url,
+        headers: req.headers,
+        json: req.body
+      }, function(error, response, body) {
+        res.json(body);
+      });
+    }
+    else {
+      proxy.on('start', function(req, res, target){
+        self.emit('proxyStart', req, res, target);
+      });
 
-    proxy.on('end', function(req, res, proxyRes){
-      self.emit('proxyEnd', req, res, proxyRes);
-    });
+      proxy.on('end', function(req, res, proxyRes){
+        self.emit('proxyEnd', req, res, proxyRes);
+      });
 
-    proxy.on('error', function (err) {
-      self.emit('proxyError', err);
-      next(err);
-    });
+      proxy.on('error', function (err) {
+        self.emit('proxyError', err);
+        next(err);
+      });
 
-    proxy.web(req, res, {
-      target: target
-    });
+      proxy.web(req, res, {
+        target: target
+      });
+    
+    }
   };
 
 };
