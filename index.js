@@ -151,6 +151,7 @@ ProxyKeystone = function(customOptions){
       req.headers['User-Agent'] = self.options.userAgent;
     }
 
+    // dirty hacks for POST/PUT requests
     if (req.method == 'POST' || req.method == 'PUT') {
       request({
         method: req.method,
@@ -158,7 +159,12 @@ ProxyKeystone = function(customOptions){
         headers: req.headers,
         json: req.body
       }, function(error, response, body) {
-        res.json(body);
+        if (error) {
+          res.json({status: 500, data: error});
+        }
+        else {
+          res.json(body);
+        }
       });
     }
     else {
