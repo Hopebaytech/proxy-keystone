@@ -160,7 +160,7 @@ ProxyKeystone = function(customOptions){
         json: req.body
       }, function(error, response, body) {
         if (error) {
-          res.json({status: 500, data: error});
+          next(error);
         }
         else {
           res.json(body);
