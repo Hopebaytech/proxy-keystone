@@ -13,6 +13,7 @@ ProxyKeystone = function(customOptions){
   self.options = {
     token: 'user.token',
     userId: 'user.userId',
+    tenantId: 'user.tenantId',
     catalog: 'user.serviceCatalog',
     userAgent: ''
   };
@@ -72,7 +73,7 @@ ProxyKeystone = function(customOptions){
 
   self.middleware = function (req, res, next) {
     var error, token, catalog, serviceParams, service,
-    endpoint, endpointInfo, target, serviceInfo, userId,
+    endpoint, endpointInfo, target, serviceInfo, userId, tenantId,
     proxyUrl = req.route.path.replace(/\*$/, '');
 
     // Handle body parser issues
@@ -88,6 +89,7 @@ ProxyKeystone = function(customOptions){
     // set token and serviceCatalog
     token = self.getValueByString(req, self.options.token);
     userId = self.getValueByString(req, self.options.userId);
+    tenantId = self.getValueByString(req, self.options.tenantId);
     catalog = self.getValueByString(req, self.options.catalog);
 
     if(!token && !userId){
@@ -145,6 +147,7 @@ ProxyKeystone = function(customOptions){
     req.headers = {};
     req.headers['X-Auth-Token'] = token;
     req.headers['X-Auth-User'] = userId;
+    req.headers['X-Auth-Tenant'] = tenantId;
     req.headers['Accept'] = 'application/json';
     req.headers['Content-Type'] = 'application/json';
     if (self.options.userAgent){
