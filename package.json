@@ -32,8 +32,8 @@
     "connect"
   ],
   "dependencies": {
-    "http-proxy": "^1.11.2",
+    "http-proxy": "^1.12.1",
     "lodash": "^2.4.1",
-    "request": "^2.61.0"
+    "request": "^2.67.0"
   }
 }
