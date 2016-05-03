@@ -164,8 +164,9 @@ ProxyKeystone = function(customOptions){
       }, function(error, response, body) {
         if (error) {
           next(error);
-        }
-        else {
+        } else if ('x-redirect' in response.headers) {
+          res.redirect(response.headers['x-redirect']); 
+        } else {
           res.json(body);
         }
       });
